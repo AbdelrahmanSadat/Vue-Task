@@ -15,7 +15,7 @@
 export default {
     data(){
         return{
-            videoUrl: `http://www.youtube.com/embed/${this.$route.params.id}?enablejsapi=1&origin=http://example.com`
+            videoUrl: `https://www.youtube.com/embed/${this.$route.params.id}?enablejsapi=1&origin=${"https://www.vue-nuxt-task-herokuapp.com"}`
         }
     },
     components: {
