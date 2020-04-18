@@ -58,11 +58,15 @@ export default {
 .container {
   margin: 2rem auto;
   min-height: 100vh;
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
   /* text-align: center; */
+}
+
+.list{
+  margin-top: 2rem
 }
 
 .links {
