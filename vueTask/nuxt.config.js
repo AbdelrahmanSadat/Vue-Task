@@ -1,6 +1,3 @@
-const Dotenv = require('dotenv-webpack')
-
-
 export default {
   mode: 'spa',
   /*
@@ -59,7 +56,6 @@ export default {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      config.plugins.push(new Dotenv());
     }
   }
 }
