@@ -1,44 +1,40 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        vueTask
-      </h1>
-      <h2 class="subtitle">
-        My stupendous Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    <!-- // TODO: add one channel with some of its videos (channelSections)-->
+    <nuxt-link v-bind:to="temp">Video</nuxt-link>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import axios from "axios";
 
 export default {
   components: {
-    Logo
+  },
+  data () {
+    return {
+      channels: [],
+      channelUserNames:["triplejtv", "nprmusic", "RiotGamesInc"],
+      temp: "/videos"
+    }
+  },
+  async fetch () {
+    let channel = await axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails&forUsername=triplejtv&key=${process.env.API_KEY}`)
+    .catch((err)=>console.log(err));
+    console.log(channel);
+
+    let recentUploadsPlaylistId = channel.data.items[0].contentDetails.relatedPlaylists.uploads;
+
+    let channelRecentUploads = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=5&playlistId=${recentUploadsPlaylistId}&key=${process.env.API_KEY}`)
+    .catch((err)=>console.log(err));
+    console.log(channelRecentUploads);
+    
+    this.temp = "/video/"+channelRecentUploads.data.items[0].contentDetails.videoId
   }
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;
